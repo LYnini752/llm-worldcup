@@ -193,3 +193,7 @@ Real API connectivity, account quota and judging quality remain **untested**. Th
 ## License
 
 MIT; see [LICENSE](LICENSE). Third-party dependencies retain their own licenses.
+
+## Included samples
+
+See [sample data and attribution](examples/README.md) for ready-to-use inputs, offline previews, licenses, and limitations. No API credentials are included.

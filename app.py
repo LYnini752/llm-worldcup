@@ -255,6 +255,7 @@ def build_app():
         gr.Markdown("# LLM 世界杯\n同一道题，每位模型只回答一次，匿名双向复评淘汰。**冠军只代表本题本场偏好，不是模型总体排名。**")
 
         question = gr.Textbox(label="你的问题", lines=3, value="怎样向初学者解释过拟合？请举一个具体例子。")
+        gr.Examples(examples=[[q] for q in json.loads((Path(__file__).parent / "examples/questions.json").read_text(encoding="utf-8"))], inputs=question, label="示例问题（真实比赛需要配置 API）")
         with gr.Accordion("参赛模型与裁判配置（密钥只走环境变量，不写入配置或导出文件）", open=True):
             config = gr.Code(value=(ROOT / "config.example.json").read_text(encoding="utf-8"),
                              language="json", label="配置 JSON")

@@ -148,3 +148,7 @@ llm-worldcup/
 ## 许可证
 
 MIT，见 [LICENSE](LICENSE)。第三方依赖保留各自许可证。
+
+## 内置测试数据
+
+见 [示例数据与来源说明](examples/README.md)：包含可以直接试用的输入、离线预览方式、许可证与限制，不附带 API 密钥。
