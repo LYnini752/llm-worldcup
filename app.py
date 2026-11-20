@@ -232,6 +232,7 @@ def load_demo():
 
 
 def build_app():
+    initial_report = load_report(ROOT / "examples" / "demo_report.synthetic.json")
     with gr.Blocks(title="LLM World Cup", theme=gr.themes.Soft(), css=(
         ".round{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}"
         "article.match{border:1px solid #ccc;border-radius:14px;padding:18px;flex:1;min-width:280px}"
@@ -254,16 +255,20 @@ def build_app():
     )) as demo:
         gr.Markdown("# LLM 世界杯\n同一道题，每位模型只回答一次，匿名双向复评淘汰。**冠军只代表本题本场偏好，不是模型总体排名。**")
 
+        gr.Markdown("### 先看效果 · 无需 API Key\n首次打开显示**预制合成比赛**，不产生费用，不代表真实模型表现。开始真实比赛或加载历史记录后，下方会更新为对应结果。")
+        demo_btn = gr.Button("重新载入免 Key 示例比赛", variant="primary")
+        bracket = gr.HTML(value=render(initial_report))
+        gr.Markdown("### 用自己的问题开始真实比赛\n**8 个模型 ≠ 8 个 Key。** 同一服务商支持多个模型时，选手和裁判可共用一个 Key；也可以先用 2 个模型试玩。")
         question = gr.Textbox(label="你的问题", lines=3, value="怎样向初学者解释过拟合？请举一个具体例子。")
         gr.Examples(examples=[[q] for q in json.loads((Path(__file__).parent / "examples/questions.json").read_text(encoding="utf-8"))], inputs=question, label="示例问题（真实比赛需要配置 API）")
-        with gr.Accordion("参赛模型与裁判配置（密钥只走环境变量，不写入配置或导出文件）", open=True):
+        with gr.Accordion("参赛模型与裁判配置（密钥只走环境变量，不写入配置或导出文件）", open=False):
+            gr.Markdown("配置中的 `model` 填不同模型 ID，`api_key_env` 可以都填同一个环境变量名。Key 设置在本机环境变量里，不填进 JSON。多模型服务示例：[OpenRouter 接入说明](https://openrouter.ai/docs/quickstart)。实际调用可能产生费用。")
             config = gr.Code(value=(ROOT / "config.example.json").read_text(encoding="utf-8"),
                              language="json", label="配置 JSON")
 
         with gr.Row():
-            button = gr.Button("开始比赛", variant="primary")
+            button = gr.Button("开始真实比赛 · 需要配置 API", variant="secondary")
             load_btn = gr.Button("加载历史记录")
-            demo_btn = gr.Button("离线预览合成演示")
         history = gr.File(label="历史比赛 JSON", file_types=[".json"], visible=False)
 
         review_slots = []
@@ -274,9 +279,8 @@ def build_app():
                 review_slots.append(gr.Dropdown(visible=False, choices=[], label="—"))
             resume_btn = gr.Button("提交裁决并续赛", variant="secondary")
 
-        bracket = gr.HTML()
-        report_state = gr.State()
-        report_json = gr.JSON(label="完整比赛记录（含答案、判决与耗时）")
+        report_state = gr.State(value=initial_report)
+        report_json = gr.JSON(value=initial_report, label="完整比赛记录（含答案、判决与耗时）")
         downloads = gr.File(label="导出文件（JSON + Markdown）")
 
         outputs = [bracket, report_state, report_json, downloads, *review_slots, review_panel]
