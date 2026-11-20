@@ -1,0 +1,18 @@
+[project]
+name = "llm-worldcup"
+version = "0.1.0a1"
+description = "Single-question knockout bracket that compares LLM answers with an anonymous double-review judge."
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff.lint]
+# TRY004: config/validation failures deliberately raise ValueError as the
+#   public contract, not TypeError.
+# BLE001: a broad catch isolates one player/match failure so the rest of the
+#   bracket can be reviewed instead of aborting the whole run.
+ignore = ["TRY004", "BLE001"]

@@ -1,0 +1,184 @@
+{
+  "id": "synthetic-demo-0001",
+  "schema_version": 1,
+  "created_at": "2026-11-19T12:00:00+00:00",
+  "synthetic": true,
+  "question": "怎样向初学者解释过拟合？请举一个具体例子。",
+  "seed": 42,
+  "rubric": {
+    "correctness": 40,
+    "relevance": 25,
+    "completeness": 20,
+    "clarity": 15
+  },
+  "status": "complete",
+  "answers": {
+    "Alpha": {
+      "text": "过拟合就像学生把往年考题答案背下来，遇到新题却不会举一反三。模型训练时把训练数据的噪声也记住了，训练集表现很好，新数据上反而变差。",
+      "seconds": 1.42,
+      "model": "synthetic-alpha",
+      "usage": {
+        "total_tokens": 61
+      },
+      "char_count": 78
+    },
+    "Beta": {
+      "text": "过拟合指模型过于贴合训练数据，泛化能力下降。",
+      "seconds": 0.83,
+      "model": "synthetic-beta",
+      "usage": {
+        "total_tokens": 18
+      },
+      "char_count": 27
+    },
+    "Gamma": {
+      "text": "当模型复杂度太高、数据太少时，会记住随机波动而非规律。比如用高次曲线拟合少量散点，曲线来回穿过每个点，却无法预测新点。",
+      "seconds": 1.17,
+      "model": "synthetic-gamma",
+      "usage": {
+        "total_tokens": 55
+      },
+      "char_count": 70
+    },
+    "Delta": {
+      "text": "过拟合。",
+      "seconds": 0.21,
+      "model": "synthetic-delta",
+      "usage": {
+        "total_tokens": 3
+      },
+      "char_count": 4
+    }
+  },
+  "rounds": [
+    [
+      {
+        "id": "m1",
+        "players": [
+          "Alpha",
+          "Beta"
+        ],
+        "winner": "Alpha",
+        "review_required": null,
+        "error": null,
+        "judgments": [
+          {
+            "order": [
+              "Alpha",
+              "Beta"
+            ],
+            "winner": "A",
+            "reason": "Alpha 有定义也有例子，更完整清晰。",
+            "scores": {
+              "A": 84,
+              "B": 62
+            },
+            "seconds": 0.41
+          },
+          {
+            "order": [
+              "Beta",
+              "Alpha"
+            ],
+            "winner": "B",
+            "reason": "换序后仍认为 Alpha 解释更充分。",
+            "scores": {
+              "A": 63,
+              "B": 85
+            },
+            "seconds": 0.39
+          }
+        ]
+      },
+      {
+        "id": "m2",
+        "players": [
+          "Gamma",
+          "Delta"
+        ],
+        "winner": "Gamma",
+        "review_required": null,
+        "error": null,
+        "judgments": [
+          {
+            "order": [
+              "Gamma",
+              "Delta"
+            ],
+            "winner": "A",
+            "reason": "Gamma 给出机制和具体类比，Delta 几乎没有内容。",
+            "scores": {
+              "A": 80,
+              "B": 20
+            },
+            "seconds": 0.37
+          },
+          {
+            "order": [
+              "Delta",
+              "Gamma"
+            ],
+            "winner": "B",
+            "reason": "换序后结论不变，Gamma 明显更好。",
+            "scores": {
+              "A": 22,
+              "B": 81
+            },
+            "seconds": 0.4
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "id": "m3",
+        "players": [
+          "Alpha",
+          "Gamma"
+        ],
+        "winner": "Alpha",
+        "review_required": null,
+        "error": null,
+        "judgments": [
+          {
+            "order": [
+              "Alpha",
+              "Gamma"
+            ],
+            "winner": "A",
+            "reason": "两者都清楚，Alpha 的学生类比更贴近初学者。",
+            "scores": {
+              "A": 83,
+              "B": 79
+            },
+            "seconds": 0.44
+          },
+          {
+            "order": [
+              "Gamma",
+              "Alpha"
+            ],
+            "winner": "B",
+            "reason": "换序后 Alpha 的表达仍更易懂。",
+            "scores": {
+              "A": 78,
+              "B": 82
+            },
+            "seconds": 0.42
+          }
+        ]
+      }
+    ]
+  ],
+  "winner": "Alpha",
+  "settings": {
+    "temperature": 0.3,
+    "max_tokens": 1500,
+    "judge_temperature": 0,
+    "judge_max_tokens": 1000,
+    "timeout": 120,
+    "retries": 2
+  },
+  "judge_model": "synthetic-judge",
+  "limitations": "Single-question bracket preference, not an overall model ranking. Seed only controls bracket; model outputs may vary."
+}

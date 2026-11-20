@@ -1,0 +1,4 @@
+# Development and test dependencies (install on top of a fresh venv).
+-r requirements.txt
+pytest>=8.0
+ruff>=0.17

@@ -1,0 +1,2 @@
+# Runtime dependencies. Python 3.11+ (developed and tested on 3.13).
+gradio==5.50.0

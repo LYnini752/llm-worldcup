@@ -1,0 +1,43 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments (project-local only; never commit ../.venv) ---
+.venv/
+venv/
+env/
+
+# --- Test / tooling caches ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# --- Local runtime data: saved match reports, logs, caches ---
+.local/
+*.log
+
+# --- Secrets: real config and environment files must never be committed ---
+.env
+.env.*
+!.env.example
+config.json
+config.local.json
+*.key
+*.pem
+
+# --- Internal handoff notes (local only, not published) ---
+HANDOFF.md
+WORKLOG.md
+
+# --- OS / editor noise ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
